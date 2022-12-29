@@ -7,16 +7,17 @@ let playerX = 50;
 let playerY = canvas.height - 50;
 let playerSpeed = 5;
 
-let alienSpeed = 2;
+let alienSpeed = 1.1;
 let alienDirection = 1;
 
 let aliens = [];
 for (let i = 0; i < 10; i++) {
     aliens.push({
         x: i * 50,
-        y: 50,
+        y: 0,
     });
 }
+
 
 // Set up game loop
 function gameLoop() {
@@ -25,12 +26,12 @@ function gameLoop() {
 
     // Draw player
     ctx.fillStyle = 'white';
-    ctx.fillRect(playerX, playerY, 30, 30);
+    ctx.fillRect(playerX, playerY, 20, 20);
 
     // Draw aliens
     ctx.fillStyle = 'red';
     aliens.forEach(alien => {
-        ctx.fillRect(alien.x, alien.y, 30, 30);
+        ctx.fillRect(alien.x, alien.y, 20, 20);
     });
 
     // Move player
@@ -46,14 +47,15 @@ function gameLoop() {
         alien.x += alienSpeed * alienDirection;
     });
 
-// Check if aliens have reached the edge of the screen
+    // Check if aliens have reached the edge of the screen
     const rightmostAlien = aliens[aliens.length - 1];
-    if (rightmostAlien.x > canvas.width - 30 || aliens[0].x < 0) {
+    if (rightmostAlien.x > canvas.width - 20 || aliens[0].x < 0) {
         alienDirection *= -1;
         aliens.forEach(alien => {
-            alien.y += 30;
+            alien.y += 0.01;
         });
     }
+
     // Request another frame
     requestAnimationFrame(gameLoop);
 }
